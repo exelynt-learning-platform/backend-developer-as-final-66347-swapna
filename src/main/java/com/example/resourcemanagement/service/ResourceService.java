@@ -5,7 +5,7 @@ import java.util.List;
 import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
-import com.example.resourcemanagement.dto.ResourceRequest;
+import com.example.resourcemanagement.dto.request.ResourceRequest;
 import com.example.resourcemanagement.entity.Resource;
 import com.example.resourcemanagement.repository.ResourceRepository;
 

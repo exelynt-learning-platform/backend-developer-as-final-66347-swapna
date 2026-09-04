@@ -1,4 +1,4 @@
-package com.example.resourcemanagement.dto;
+package com.example.resourcemanagement.dto.request;
 
 import java.math.BigDecimal;
 
