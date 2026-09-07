@@ -37,4 +37,20 @@ public class ResourceService {
 		// TODO Auto-generated method stub
 		return resourceRepository.save(toEntity(request));
 	}
+
+	public Resource updateResource(@Valid Long id, @Valid ResourceRequest request) {
+		// TODO Auto-generated method stub
+		Resource resource=resourceRepository.findById(id).orElseThrow(()->new RuntimeException("Resource not found"));
+		resource.setName(request.getName());
+		resource.setPrice(request.getPrice());
+		resource.setDescription(request.getDescription());
+		resource.setType(request.getType());
+		
+		return resource;
+	}
+
+	public void deleteResource(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
 }
