@@ -38,7 +38,7 @@ public class ResourceService {
 		return resourceRepository.save(toEntity(request));
 	}
 
-	public Resource updateResource(@Valid Long id, @Valid ResourceRequest request) {
+	public Resource updateResource( Long id, ResourceRequest request) {
 		// TODO Auto-generated method stub
 		Resource resource=resourceRepository.findById(id).orElseThrow(()->new RuntimeException("Resource not found"));
 		resource.setName(request.getName());
@@ -51,6 +51,7 @@ public class ResourceService {
 
 	public void deleteResource(Long id) {
 		// TODO Auto-generated method stub
-		
+		Resource resource=resourceRepository.findById(id).orElseThrow(()->new RuntimeException("No Resource found"));
+		resourceRepository.delete(resource);
 	}
 }
