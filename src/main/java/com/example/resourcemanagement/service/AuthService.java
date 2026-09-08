@@ -4,10 +4,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.resourcemanagement.dto.request.LoginRequest;
+import com.example.resourcemanagement.dto.request.RegisterRequest;
 import com.example.resourcemanagement.dto.response.LoginResponse;
 import com.example.resourcemanagement.entity.User;
+import com.example.resourcemanagement.enums.Role;
 import com.example.resourcemanagement.repository.UserRepository;
 import com.example.resourcemanagement.security.JwtService;
+
+import jakarta.validation.Valid;
 
 @Service
 public class AuthService {
@@ -32,5 +36,19 @@ public class AuthService {
 		String token=jwtService.generateToken(user.getEmail(),user.getRole().name());
 		
 		return new LoginResponse(token);
+	}
+
+	public void register(@Valid RegisterRequest request) {
+		// TODO Auto-generated method stub
+		if(userRepository.findByEmail(request.getEmail()).isPresent()) {
+			throw new RuntimeException("Email already registered");
+		}
+		User user=new User();
+		user.setUserName(request.getUsername());
+		user.setEmail(request.getEmail());
+		user.setPassword(passwordEncoder.encode(request.getPassword()));
+		user.setRole(Role.USER);
+		userRepository.save(user);
+		
 	}
 }
