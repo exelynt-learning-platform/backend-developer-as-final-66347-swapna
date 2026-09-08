@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.resourcemanagement.dto.request.ReservationRequest;
-import com.example.resourcemanagement.entity.Reservation;
+import com.example.resourcemanagement.dto.response.ReservationResponse;
+//import com.example.resourcemanagement.entity.Reservation;
 import com.example.resourcemanagement.enums.ReservationStatus;
 import com.example.resourcemanagement.service.ReservationService;
 
@@ -39,16 +40,16 @@ public class ReservationController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Reservation> createReservation(
+	public ResponseEntity<ReservationResponse> createReservation(
 			@Valid @RequestBody ReservationRequest reservationRequest) {
 		//TODO: process POST request
-		Reservation reservation=reservationService.createReservation(reservationRequest);
+		ReservationResponse reservation=reservationService.createReservation(reservationRequest);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(reservation);
 	}
 	
 	@GetMapping
-	public ResponseEntity<Page<Reservation>> getReservations(
+	public ResponseEntity<Page<ReservationResponse>> getReservations(
 
 	        @RequestParam(required = false) ReservationStatus status,
 	        @RequestParam(required = false) BigDecimal minPrice,
@@ -60,7 +61,7 @@ public class ReservationController {
 	        )
 	        Pageable pageable) {
 
-	    Page<Reservation> reservations =
+	    Page<ReservationResponse> reservations =
 	            reservationService.getReservations(
 	                    status,
 	                    minPrice,
@@ -72,10 +73,10 @@ public class ReservationController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Reservation> updateReservation(@PathVariable Long id, 
+	public ResponseEntity<ReservationResponse> updateReservation(@PathVariable Long id, 
 			@Valid @RequestBody ReservationRequest request) {
 		//TODO: process PUT request
-		Reservation reservation = reservationService.updateReservation(id ,request);
+		ReservationResponse reservation = reservationService.updateReservation(id ,request);
 		
 		return ResponseEntity.ok(reservation);
 	}
@@ -87,9 +88,9 @@ public class ReservationController {
 	}
 	
 	@PatchMapping("/{id}/status/{status}")
-	public ResponseEntity<Reservation> updateReservationStatus(@PathVariable Long id,
+	public ResponseEntity<ReservationResponse> updateReservationStatus(@PathVariable Long id,
 			@PathVariable ReservationStatus status) {
-		Reservation reservation = reservationService.updateReservationStatus(id,status);
+		ReservationResponse reservation = reservationService.updateReservationStatus(id,status);
 		return ResponseEntity.ok(reservation);
 	}
 	
