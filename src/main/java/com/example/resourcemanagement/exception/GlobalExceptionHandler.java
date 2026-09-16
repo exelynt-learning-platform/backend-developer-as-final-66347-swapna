@@ -63,6 +63,7 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<Map<String,String>> handleAccessDenied(AccessDeniedException exception){
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("message","You do not have permission to access this resource"));
 	}
+	
 	@ExceptionHandler(AuthenticationException.class)
 	public ResponseEntity<Map<String, String>> handleAuthentication(
 	        AuthenticationException exception) {
@@ -72,6 +73,17 @@ public class GlobalExceptionHandler {
 	            .body(Map.of(
 	                    "message",
 	                    "Authentication failed"
+	            ));
+	}
+	@ExceptionHandler(InvalidCredentialsException.class)
+	public ResponseEntity<Map<String, String>> handleInvalidCredentialsException(
+			InvalidCredentialsException exception) {
+
+	    return ResponseEntity
+	            .status(HttpStatus.UNAUTHORIZED)
+	            .body(Map.of(
+	                    "message",
+	                    "Invalid credentials failed"
 	            ));
 	}
 }
